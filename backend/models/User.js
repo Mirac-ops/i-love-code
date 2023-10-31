@@ -1,3 +1,6 @@
+const mongoose = require('mongoose');
+const crypto = require('crypto');
+
 const { Schema, model } = require('mongoose');
 
 const userSchema = new Schema({
@@ -11,3 +14,7 @@ const userSchema = new Schema({
 
 const userModel = new model('User', userSchema, 'users');
 module.exports = userModel;
+
+
+
+
