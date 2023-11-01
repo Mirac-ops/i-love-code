@@ -1,26 +1,24 @@
 const mongoose = require('mongoose');
-const crypto = require('crypto');
 
-const { Schema, model } = require('mongoose');
-
-const userTimeEntrySchema = new mongoose.Schema({
-
-  username: {
-    type: String,
-    required: true,
-  },
-
-  startTime: {
-    type: Date,
-    required: true,
-  },
-
-  endTime: {
-    type: Date,
-    required: true,
-  },
-  
-});
-                            /// fehler!
-const userTimeEntryModel = new model('userTimeEntry', userTimeEntrySchema, 'users');
-module.exports = userTimeEntryModel;
+const { Schema, model } = mongoose;
+const userTimeEntrySchema = new Schema({
+    username: {
+        type: String,
+        ref: 'User', // Referenz auf den "username" im User-Modell
+        required: true
+    },
+    startTime: {
+        type: Date,
+        required: true
+    },
+    endTime: {
+        type: Date,
+        required: true
+    }
+},
+{
+    timestamps: true
+}
+);
+const UserTimeEntry = model('UserTimeEntry', userTimeEntrySchema, 'userTimeEntries');
+module.exports = UserTimeEntry;
