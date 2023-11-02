@@ -19,12 +19,7 @@ exports.createUser = async (req, res) => {
     console.error("Fehler beim Erstellen des Benutzers:", error);
   }
 };
-/* async function hashPassword(password) {
-    const saltRounds = 10;
-    const hashedPassword = await bcrypt.hash(password, saltRounds);
-    return hashedPassword;
-  }
- */
+
 exports.loginUser = async (req, res) => {
   try {
     const { username, password } = req.body;

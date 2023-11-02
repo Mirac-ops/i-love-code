@@ -1,5 +1,6 @@
 const User = require("../models/User");
 const UserTimeEntry = require("../models/userTimeEntry");
+
 // Hilfsfunktion zum Konvertieren des deutschen Datumsformats
 function convertGermanDate(germanDate) {
   const parts = germanDate.split(".");
@@ -18,6 +19,7 @@ exports.getAllTimeEntries = async (req, res) => {
       .json({ message: "Error retrieving time entries", error: error.message });
   }
 };
+
 // Funktion zum Erstellen eines neuen Time Entries
 exports.createTimeEntry = async (req, res) => {
   try {
@@ -34,6 +36,7 @@ exports.createTimeEntry = async (req, res) => {
       startTime: startTime,
       endTime: endTime,
     });
+    
     // Überprüfe den Benutzernamen im User-Modell
     console.log("Searching for username:", newEntry.username);
     const userExists = await User.findOne({ username: newEntry.username });

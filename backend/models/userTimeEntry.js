@@ -4,7 +4,7 @@ const { Schema, model } = mongoose;
 const userTimeEntrySchema = new Schema({
     username: {
         type: String,
-        ref: 'User', // Referenz auf den "username" im User-Modell
+        ref: 'User', // Referenz auf den "username" im User-Models
         required: true
     },
     startTime: {
