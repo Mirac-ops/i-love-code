@@ -1,5 +1,6 @@
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
+
 exports.getUsers = async (req, res) => {
   // <<< zum User gehen mit getUsers.
   try {
@@ -9,6 +10,7 @@ exports.getUsers = async (req, res) => {
     res.status(500).send("Error fetching users");
   }
 };
+
 exports.createUser = async (req, res) => {
   try {
     const newUser = req.body;

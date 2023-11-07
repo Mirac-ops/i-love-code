@@ -27,7 +27,9 @@ exports.createTimeEntry = async (req, res) => {
     const formattedEndTime = convertGermanDate(req.body.endTime);
     const startTime = new Date(formattedStartTime);
     const endTime = new Date(formattedEndTime);
+
     // Überprüfe die Validität der Daten
+
     if (isNaN(startTime) || isNaN(endTime)) {
       return res.status(400).json({ message: "Invalid date format." });
     }
@@ -38,6 +40,7 @@ exports.createTimeEntry = async (req, res) => {
     });
     
     // Überprüfe den Benutzernamen im User-Modell
+    
     console.log("Searching for username:", newEntry.username);
     const userExists = await User.findOne({ username: newEntry.username });
     if (!userExists) {
