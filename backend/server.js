@@ -26,9 +26,6 @@ app.use(cookieParser());
 // DB Verbindung
 connect();
 
-
-
-
 // Routes
 const usersRouter = require("./routes/userRouter");
 app.use("/api/users", usersRouter);
