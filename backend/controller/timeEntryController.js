@@ -38,9 +38,9 @@ exports.createTimeEntry = async (req, res) => {
       startTime: startTime,
       endTime: endTime,
     });
-    
+
     // Überprüfe den Benutzernamen im User-Modell
-    
+
     console.log("Searching for username:", newEntry.username);
     const userExists = await User.findOne({ username: newEntry.username });
     if (!userExists) {
