@@ -1,17 +1,17 @@
-require("dotenv").config(); /// richtig
+require("dotenv").config();     /// richtig
 
 const express = require("express");
 const app = express();
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser"); /// richtig
-const crypto = require("crypto");      /// richtig
+const crypto = require("crypto");              /// richtig
 const mongoose = require("mongoose");
 const User = require("./models/User");
-const bcrypt = require("bcrypt");       //// richtig
+const bcrypt = require("bcrypt");             //// richtig
 
 const { connect } = require("./configs/db.js");
 
-const secret = process.env.TOKEN_SECRET;   ///// richtig
+const secret = process.env.TOKEN_SECRET;   ///// richtig 
 console.log(secret);
 
 const port = process.env.PORT;
@@ -45,12 +45,12 @@ app.post("/login", async (req, res) => {
         .status(401)
         .json({ success: false, msg: "Benutzer nicht gefunden" });
     }
-
+      //  console.log(await bcrypt.hash(password, 12))
     // Passwort überprüfen
     const passwordMatch = await bcrypt.compare(password, user.password);
 
     if (passwordMatch) {
-      // Passwort stimmt überein, Token erstellen und zurückgeben 
+          // Passwort stimmt überein, Token erstellen und zurückgeben 
       const accessToken = jwt.sign(
         { name: username },
         process.env.TOKEN_SECRET
@@ -64,6 +64,7 @@ app.post("/login", async (req, res) => {
       return res
         .status(200)
         .json({ success: true, msg: `Benutzer ${ username } eingeloggt` });
+        
     } else {
       return res.status(401).json({ success: false, msg: "Falsches Passwort" });
     }
@@ -77,7 +78,7 @@ app.post("/login", async (req, res) => {
 app.post("/logout", (req, res) => {
   return (
     res
-      // wir nutzen die methode .clearCookie();
+          // wir nutzen die methode .clearCookie();
       .clearCookie("access_token")
       .status(200)
       .json({
@@ -87,7 +88,7 @@ app.post("/logout", (req, res) => {
   );
 });
 
-// Error Handling
+    // Error Handling
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send("Something broke!");
@@ -97,5 +98,5 @@ require("dotenv").config();
 const PORT = process.env.PORT || 3000; /// falls 4000 nicht funktioniert.
 
 app.listen(PORT, () => {
-  console.log(`Server is running on ${PORT}`);
+  console.log(`Server is running on ${ PORT }`);
 });

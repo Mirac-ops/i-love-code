@@ -7,6 +7,7 @@ function convertGermanDate(germanDate) {
   if (parts.length !== 3) return null;
   return `${parts[2]}-${parts[1]}-${parts[0]}`;
 }
+
 // Funktion zum Abrufen aller Time Entries
 exports.getAllTimeEntries = async (req, res) => {
   try {
