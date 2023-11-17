@@ -1,11 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Login from "./componente/Login";
 import WorkTime from "./componente/WorkTime";
 import Footer from "./componente/Footer";
 import Logout from "./componente/LogOut";
 
-function App() {
+
+const App = () => {
+
+  // const [data, setData] = useState("");
+
+  // const getData = async () => {
+  //   const response = await Axios.get("http://localhost:3000/getData");
+  //   setData(response.data);
+  // };
+
+  // useEffect(() => {
+  //   getData();
+  // }, []);
+
   return (
     <>
       <Router>
@@ -18,6 +31,6 @@ function App() {
       <Footer />
     </>
   );
-}
+};
 
 export default App;

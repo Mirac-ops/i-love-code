@@ -14,22 +14,7 @@ const WorkTime = () => {
     setDienstende(e.target.value)
   };
 
-  const handleSaveEntry = async (e) => {
-    e.preventDefault();
-      await axios.post('http://localhost:4000/api/time-entries', {
-      headers: {
-        'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(dienstbeginn, dienstende)
-    })
-      setDienstbeginn("");
-      setDienstende("");
-
-      alert('Arbeitszeiteintrag erfolgreich gespeichert');
-    } catch (error) {
-      console.error('Fehler beim Speichern des Arbeitszeiteintrags:', error);
-    }
-  };
+  
   
 
   return (
