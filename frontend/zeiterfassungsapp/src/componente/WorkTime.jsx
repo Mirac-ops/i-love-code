@@ -1,47 +1,69 @@
 import React, { useState, useEffect } from "react";
-import axios from 'axios'
-import { Link } from "react-router-dom";
+import axios from "axios";
+import { Link, useLocation } from "react-router-dom";
+import WomenLogo from '../images/women.jpg';
 
 const WorkTime = () => {
+
   const [dienstbeginn, setDienstbeginn] = useState("");
   const [dienstende, setDienstende] = useState("");
+  const [username, setUsername] = useState("");
+
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const usernameFromQuery = queryParams.get("username");
+
+  useEffect(() => {
+    if (usernameFromQuery) {
+      setUsername(usernameFromQuery);
+    }
+  }, [usernameFromQuery]);
 
   const handleSaveDienstbeginn = (e) => {
-    setDienstbeginn(e.target.value)
+    setDienstbeginn(e.target.value);
   };
 
   const handleSaveDienstende = (e) => {
-    setDienstende(e.target.value)
+    setDienstende(e.target.value);
   };
 
-  const handleSaveEntry = async (e) => {
-    e.preventDefault();
-      await axios.post('http://localhost:4000/api/time-entries', {
-      headers: {
-        'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(dienstbeginn, dienstende)
-    })
-      setDienstbeginn("");
-      setDienstende("");
+  const handleSaveEntry = async () => {
+    try {
+      const data = {
+        dienstbeginn,
+        dienstende,
+        username,
+      };
 
-      alert('Arbeitszeiteintrag erfolgreich gespeichert');
+      console.log ("data", data);
+
+      const apiUrl = "http://localhost:4000/api/time-entries";
+
+      const response = await axios.post(apiUrl, data);
+
+      if (response.status === 201) {
+        /* setDienstbeginn("");
+        setDienstende(""); */
+        alert("Arbeitszeiteintrag erfolgreich gespeichert");
+      } else {
+        console.error("Fehler beim Speichern des Arbeitszeiteintrags:", response.data);
+      }
     } catch (error) {
-      console.error('Fehler beim Speichern des Arbeitszeiteintrags:', error);
+      console.error("Fehler beim Speichern des Arbeitszeiteintrags:", error);
     }
   };
-  
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-red-300">
-      <h1 className="text-4xl mb-4">Arbeitszeiterfassung</h1>
+    <div className="flex flex-col items-center justify-center h-screen bg-cover bg-center" style={{ backgroundImage: `url(${WomenLogo})`, filter: 'grayscale(70%)' }}>
+      <h1 className="text-4xl mb-4 text-white">Arbeitszeiterfassung für {username}</h1>
       <div className="flex flex-col gap-4">
         <input
           type="text"
-          placeholder="Dienstbeginn"
+          placeholder="Dienstbeginn (HH:mm)"
           value={dienstbeginn}
-          onChange={(e) => setDienstbeginn(e.target.value)}
+          onChange={handleSaveDienstbeginn}
           className="border p-2"
+          pattern="^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$"
         />
         <button
           onClick={handleSaveEntry}
@@ -53,10 +75,11 @@ const WorkTime = () => {
       <div className="flex flex-col gap-4 mt-6">
         <input
           type="text"
-          placeholder="Dienstende"
+          placeholder="Dienstende (HH:mm)"
           value={dienstende}
-          onChange={(e) => setDienstende(e.target.value)}
+          onChange={handleSaveDienstende}
           className="border p-2"
+          pattern="^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$"
         />
         <button
           onClick={handleSaveEntry}

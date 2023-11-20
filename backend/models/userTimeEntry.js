@@ -1,24 +1,24 @@
-const mongoose = require('mongoose');
-
-const { Schema, model } = mongoose;
-const userTimeEntrySchema = new Schema({
-    username: {
-        type: String,
-        ref: 'User', // Referenz auf den "username" im User-Models
-        required: true
-    },
-    startTime: {
-        type: Date,
-        required: true
-    },
-    endTime: {
-        type: Date,
-        required: true
-    }
-},
-{
-    timestamps: true
-}
-);
-const UserTimeEntry = model('UserTimeEntry', userTimeEntrySchema, 'userTimeEntries');
+const mongoose = require("mongoose");
+const userTimeEntrySchema = new mongoose.Schema({
+  username: {
+    type: String,
+    ref: "User", // Referenz auf den "username" im User-Models
+    required: true,
+  },
+  startTime: {
+    type: String,
+    required: true,
+  },
+  endTime: {
+    type: String,
+    required: true,
+  },
+  timestamp: {
+    type: Date,
+    default: Date.now,
+  },
+});
+const UserTimeEntry = mongoose.model("UserTimeEntry", userTimeEntrySchema, "userTimeEntries");
 module.exports = UserTimeEntry;
+
+
